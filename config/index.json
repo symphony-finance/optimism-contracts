@@ -1,0 +1,23 @@
+{
+  "optimism": {
+    "yoloAddress": "",
+    "chainlinkOracle": "",
+    "aaveLendingPool": "0x794a61358D6845594F94dc1DB02A252b5b4814aD",
+    "aaveIncentivesController": "0x929EC64c34a17401F460460D4B9390518E5B473e",
+    "uniswapHandlerAddress": "",
+    "uniswapRouter": "0xE592427A0AEce92De3Edee1F18E0157C05861564",
+    "sushiswapHandlerAddress": "",
+    "sushiswapRouter": "0xbE811A0D44E2553d25d11CB8DC0d3F0D0E6430E6",
+    "sushiswapCodeHash": "0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303",
+    "balancerHandlerAddress": "",
+    "balancerVault": "0xBA12222222228d8Ba445958a75a0704d566BF2C8",
+    "wethAddress": "0x4200000000000000000000000000000000000006",
+    "treasury": "",
+    "timelockAddress": "",
+    "symphonyToken": "",
+    "proxyAdmin": "",
+    "admin": "0x3A893A7525C4263052c3C04f9C32d919c75cb8e0",
+    "emergencyAdmin": "0x3A893A7525C4263052c3C04f9C32d919c75cb8e0",
+    "multisig": ""
+  }
+}
