@@ -24,6 +24,7 @@ const daiAddress = "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1";
 const usdcAddress = "0x7F5c764cBc14f9669B88837ca1490cCa17c31607";
 const recipient = "0x641fb9877b73823f41f0f25de666275e6e846e75";
 const executor = "0x6Da788AE09788a82DAAce1d642c5f26debf4A153";
+const creator = "0x6Da788AE09788a82DAAce1d642c5f26debf4A153";
 
 let inputAmount = new BigNumber(10)
     .times(new BigNumber(10).exponentiatedBy(new BigNumber(18)));
@@ -154,6 +155,7 @@ describe("Fill Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();

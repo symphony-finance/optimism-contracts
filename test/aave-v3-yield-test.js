@@ -21,6 +21,7 @@ const usdcAddress = "0x7F5c764cBc14f9669B88837ca1490cCa17c31607";
 
 const recipient = "0x6Da788AE09788a82DAAce1d642c5f26debf4A153";
 const executor = "0x6Da788AE09788a82DAAce1d642c5f26debf4A153";
+const creator = "0x6Da788AE09788a82DAAce1d642c5f26debf4A153";
 
 const minReturnAmount = new BigNumber(15).times(
     new BigNumber(10).exponentiatedBy(new BigNumber(6))
@@ -116,7 +117,8 @@ describe("Aave v3 Yield Test", () => {
             minReturnAmount,
             stoplossAmount,
             executor,
-            executionFee
+            executionFee,
+            creator,
         );
 
         const tx1Receipt = await tx1.wait();
@@ -140,7 +142,8 @@ describe("Aave v3 Yield Test", () => {
             minReturnAmount,
             stoplossAmount,
             executor,
-            1 // executionFee
+            1, // executionFee
+            creator,
         );
 
         const tx2Receipt = await tx2.wait();
