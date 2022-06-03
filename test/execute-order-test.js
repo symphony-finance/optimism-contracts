@@ -27,6 +27,7 @@ const usdcAddress = "0x7F5c764cBc14f9669B88837ca1490cCa17c31607";
 
 const recipient = "0x6Da788AE09788a82DAAce1d642c5f26debf4A153";
 const executor = "0x6Da788AE09788a82DAAce1d642c5f26debf4A153";
+const creator = "0x0fD6f65D35cf13Ae51795036d0aE9AF42f3cBCB4";
 
 const executorFeePercent = 15; // 0.15%;
 const protocolFeePercent = 5; // 0.05%
@@ -168,6 +169,7 @@ describe("Execute Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();
@@ -346,6 +348,7 @@ describe("Execute Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();
@@ -353,6 +356,8 @@ describe("Execute Order Test", () => {
 
         const orderId = events[0].args[0];
         const orderData = events[0].args[1];
+
+        await yolo.rebalanceTokens([daiAddress]);
 
         // Remove yield strategy
         await yolo.migrateStrategy(daiAddress, ZERO_ADDRESS);
@@ -495,6 +500,7 @@ describe("Execute Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();
@@ -630,6 +636,7 @@ describe("Execute Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();
@@ -775,6 +782,7 @@ describe("Execute Order Test", () => {
             stoplossAmount1,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();
@@ -876,6 +884,7 @@ describe("Execute Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();
@@ -984,6 +993,7 @@ describe("Execute Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();

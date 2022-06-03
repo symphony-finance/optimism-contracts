@@ -18,6 +18,7 @@ const AaveYieldArtifacts = require(
 const daiAddress = "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1";
 const usdcAddress = "0x7F5c764cBc14f9669B88837ca1490cCa17c31607";
 const executor = "0x6Da788AE09788a82DAAce1d642c5f26debf4A153";
+const creator = "0x6Da788AE09788a82DAAce1d642c5f26debf4A153";
 
 const bufferPercent = 0; // 0%
 const configParams = config.optimism;
@@ -125,7 +126,10 @@ describe("Migrate Strategy Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
+
+        await yolo.rebalanceTokens([daiAddress]);
 
         const strategyBal = Number(inputAmount) * (
             (10000 - bufferPercent) / 10000
@@ -248,7 +252,10 @@ describe("Migrate Strategy Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
+
+        await yolo.rebalanceTokens([daiAddress]);
 
         const yoloDaiBal = Number(
             await daiContract.balanceOf(yolo.address)

@@ -19,6 +19,7 @@ const daiAddress = "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1";
 const usdcAddress = "0x7F5c764cBc14f9669B88837ca1490cCa17c31607";
 const recipient = "0x0fD6f65D35cf13Ae51795036d0aE9AF42f3cBCB4";
 const executor = "0x0fD6f65D35cf13Ae51795036d0aE9AF42f3cBCB4";
+const creator = "0x0fD6f65D35cf13Ae51795036d0aE9AF42f3cBCB4";
 const treasury = "0x71068bf5a429ccf51a4e2e6a65d930e3019f4d0e";
 
 let inputAmount = new BigNumber(10).times(
@@ -95,6 +96,7 @@ describe("Cancel Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const createTxReceipt = await createTx.wait();
@@ -201,7 +203,8 @@ describe("Cancel Order Test", () => {
             minReturnAmount,
             stoplossAmount,
             executor,
-            executionFee
+            executionFee,
+            creator,
         );
 
         const receipt1 = await tx1.wait();
@@ -230,6 +233,7 @@ describe("Cancel Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt2 = await tx2.wait();
@@ -326,6 +330,7 @@ describe("Cancel Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();
@@ -333,6 +338,8 @@ describe("Cancel Order Test", () => {
 
         const orderId = events[0].args[0];
         const orderData = events[0].args[1];
+
+        await yolo.rebalanceTokens([usdcAddress]);
 
         expect(Number(await usdcContract.balanceOf(yolo.address))).to.eq(
             Number(new BigNumber(inputAmount).times(
@@ -438,7 +445,8 @@ describe("Cancel Order Test", () => {
             minReturnAmount,
             stoplossAmount,
             executor,
-            executionFee
+            executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();
@@ -446,6 +454,8 @@ describe("Cancel Order Test", () => {
 
         const orderId = events[0].args[0];
         const orderData = events[0].args[1];
+
+        await yolo.rebalanceTokens([usdcAddress]);
 
         expect(Number(await usdcContract.balanceOf(yolo.address))).to.eq(
             Number(new BigNumber(inputAmount).times(
@@ -580,7 +590,8 @@ describe("Cancel Order Test", () => {
             minReturnAmount,
             stoplossAmount,
             executor,
-            executionFee
+            executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();

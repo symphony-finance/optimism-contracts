@@ -17,6 +17,7 @@ const daiAddress = "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1";
 const usdcAddress = "0x7F5c764cBc14f9669B88837ca1490cCa17c31607";
 const recipient = "0x0fD6f65D35cf13Ae51795036d0aE9AF42f3cBCB4";
 const executor = "0x0fD6f65D35cf13Ae51795036d0aE9AF42f3cBCB4";
+const creator = "0x0fD6f65D35cf13Ae51795036d0aE9AF42f3cBCB4";
 
 let inputAmount = new BigNumber(10).times(
     new BigNumber(10).exponentiatedBy(new BigNumber(6))
@@ -102,6 +103,7 @@ describe("Create Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         // Create New Order
@@ -119,6 +121,7 @@ describe("Create Order Test", () => {
             newstoploss,
             executor,
             executionFee,
+            creator,
         );
     });
 
@@ -185,6 +188,7 @@ describe("Create Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
             { value: depositAmount }
         );
 
@@ -316,7 +320,8 @@ describe("Create Order Test", () => {
             minReturnAmount1,
             0,
             executor,
-            executionFee1
+            executionFee1,
+            creator,
         );
 
         // check the state changes
@@ -349,6 +354,7 @@ describe("Create Order Test", () => {
             0,
             executor,
             executionFee2,
+            creator,
         );
 
         totalSharesAfter = await yolo.totalTokenShares(
@@ -439,6 +445,7 @@ describe("Create Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();
@@ -545,6 +552,7 @@ describe("Create Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();
@@ -646,6 +654,7 @@ describe("Create Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         expect(await yolo.totalTokenShares(usdcAddress)).to.eq(inputAmount);
@@ -659,6 +668,8 @@ describe("Create Order Test", () => {
         );
 
         expect(orderStatus).to.be.true;
+
+        await yolo.rebalanceTokens([usdcAddress]);
 
         expect(Number(await usdcContract.balanceOf(yolo.address))).to.eq(
             Number(new BigNumber(inputAmount).times(
@@ -733,6 +744,7 @@ describe("Create Order Test", () => {
                 stoplossAmount,
                 executor,
                 executionFee,
+                creator,
             )
         ).to.be.revertedWith(
             'Pausable: paused'
@@ -749,6 +761,7 @@ describe("Create Order Test", () => {
             stoplossAmount,
             executor,
             executionFee,
+            creator,
         );
 
         const receipt = await tx.wait();
