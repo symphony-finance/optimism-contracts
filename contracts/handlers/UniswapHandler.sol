@@ -13,26 +13,26 @@ contract UniswapHandler is IHandler {
 
     IUniswapRouter internal immutable uniswapRouter;
     address public immutable WETH;
-    address public immutable symphony;
+    address public immutable yolo;
 
     /**
      * @param _router - Address of the Uniswap V3 router
-     * @param _symphony - Address of Symphony contract
+     * @param _yolo - Address of YOLO contract
      */
     constructor(
         IUniswapRouter _router,
         address _weth,
-        address _symphony
+        address _yolo
     ) {
         uniswapRouter = _router;
         WETH = _weth;
-        symphony = _symphony;
+        yolo = _yolo;
     }
 
-    modifier onlySymphony() {
+    modifier onlyYolo() {
         require(
-            msg.sender == symphony,
-            "UniswapHandler: Only symphony contract can invoke this function"
+            msg.sender == yolo,
+            "UniswapHandler: Only yolo contract can invoke this function"
         );
         _;
     }
@@ -44,7 +44,7 @@ contract UniswapHandler is IHandler {
         IOrderStructs.Order memory order,
         uint256 oracleAmount,
         bytes calldata extraData
-    ) external override onlySymphony returns (uint256 actualAmtOut) {
+    ) external override onlyYolo returns (uint256 actualAmtOut) {
         uint256 amountOutMin = oracleAmount <= order.stoplossAmount ||
             oracleAmount > order.minReturnAmount
             ? oracleAmount

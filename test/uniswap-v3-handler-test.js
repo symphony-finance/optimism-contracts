@@ -105,7 +105,7 @@ describe("Uniswap V3 Handler Test", () => {
         let uniswapHandler = await UniswapHandler.deploy(
             configParams.uniswapRouter, // Router
             configParams.wethAddress, // WETH
-            deployer.address // false symphony address
+            deployer.address // false yolo address
         );
 
         await uniswapHandler.deployed();
