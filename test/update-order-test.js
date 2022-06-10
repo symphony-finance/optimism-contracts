@@ -47,7 +47,7 @@ const approveAmount = new BigNumber(100)
     .toString();
 
 describe("Update Order Test", () => {
-    it("Should Update order with Sushiswap Handler & Aave Yield", async () => {
+    it("Should Update order with Uniswap Handler & Aave Yield", async () => {
         await network.provider.request({
             method: "hardhat_impersonateAccount",
             params: ["0x6Da788AE09788a82DAAce1d642c5f26debf4A153"]
@@ -106,11 +106,11 @@ describe("Update Order Test", () => {
         );
 
         await yolo.setStrategy(daiAddress, aaveYield.address);
-        await yolo.updateTokenBuffer(daiAddress, 4000);
+        await yolo.updateTokensBuffer([daiAddress], [4000]);
 
         await daiContract.approve(yolo.address, approveAmount);
 
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         // Create Order
         const tx = await yolo.createOrder(

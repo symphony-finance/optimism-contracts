@@ -140,8 +140,8 @@ describe("Fill Order Test", () => {
         );
 
         await yolo.setStrategy(daiAddress, aaveYield.address);
-        await yolo.updateTokenBuffer(daiAddress, 4000);
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.updateTokensBuffer([daiAddress], [4000]);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         await daiContract.approve(yolo.address, approveAmount);
 

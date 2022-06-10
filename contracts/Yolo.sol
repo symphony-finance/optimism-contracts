@@ -1,18 +1,18 @@
 // SPDX-License-Identifier: agpl-3.0
 pragma solidity 0.8.10;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/interfaces/IERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
 
 import "./libraries/PercentageMath.sol";
 import "./interfaces/IOracle.sol";
 import "./interfaces/IHandler.sol";
 import "./interfaces/IYieldAdapter.sol";
 import "./interfaces/IOrderStructs.sol";
-import {IWETH as IWETH} from "./interfaces/IWETH.sol";
+import {IWETH} from "./interfaces/IWETH.sol";
 
 /**
  * @title Yolo contract
@@ -24,7 +24,7 @@ contract Yolo is
     PausableUpgradeable,
     ReentrancyGuardUpgradeable
 {
-    using SafeERC20 for IERC20;
+    using SafeERC20Upgradeable for IERC20Upgradeable;
     using PercentageMath for uint256;
 
     // Protocol treasury address
@@ -179,7 +179,7 @@ contract Yolo is
         }
 
         // caution: trusting user input
-        IERC20(inputToken).safeTransferFrom(
+        IERC20Upgradeable(inputToken).safeTransferFrom(
             msg.sender,
             address(this),
             inputAmount
@@ -423,7 +423,7 @@ contract Yolo is
             uint256 yieldEarned = depositPlusYield - myOrder.inputAmount;
             cancellationFee = yieldEarned.percentMul(feePercent);
             if (cancellationFee > 0) {
-                IERC20(myOrder.inputToken).safeTransfer(
+                IERC20Upgradeable(myOrder.inputToken).safeTransfer(
                     treasury,
                     cancellationFee
                 );
@@ -431,7 +431,10 @@ contract Yolo is
         }
 
         uint256 transferAmount = depositPlusYield - cancellationFee;
-        IERC20(myOrder.inputToken).safeTransfer(msg.sender, transferAmount);
+        IERC20Upgradeable(myOrder.inputToken).safeTransfer(
+            msg.sender,
+            transferAmount
+        );
         emit OrderCancelled(orderId, transferAmount);
     }
 
@@ -492,7 +495,10 @@ contract Yolo is
             myOrder.inputAmount
         );
 
-        IERC20(myOrder.inputToken).safeTransfer(handler, myOrder.inputAmount);
+        IERC20Upgradeable(myOrder.inputToken).safeTransfer(
+            handler,
+            myOrder.inputAmount
+        );
 
         uint256 totalAmountOut = IHandler(handler).handle(
             myOrder,
@@ -505,7 +511,7 @@ contract Yolo is
         depositPlusYield = depositPlusYield - totalFee;
         if (depositPlusYield > myOrder.inputAmount) {
             uint256 yieldEarned = depositPlusYield - myOrder.inputAmount;
-            IERC20(myOrder.inputToken).safeTransfer(
+            IERC20Upgradeable(myOrder.inputToken).safeTransfer(
                 myOrder.recipient,
                 yieldEarned
             );
@@ -572,20 +578,20 @@ contract Yolo is
         );
 
         // caution: external calls to unknown address
-        IERC20(myOrder.outputToken).safeTransferFrom(
+        IERC20Upgradeable(myOrder.outputToken).safeTransferFrom(
             msg.sender,
             myOrder.recipient,
             quoteAmount
         );
 
-        IERC20(myOrder.inputToken).safeTransfer(
+        IERC20Upgradeable(myOrder.inputToken).safeTransfer(
             msg.sender,
             myOrder.inputAmount - protocolFee
         );
 
         if (depositPlusYield > myOrder.inputAmount) {
             uint256 yieldEarned = depositPlusYield - myOrder.inputAmount;
-            IERC20(myOrder.inputToken).safeTransfer(
+            IERC20Upgradeable(myOrder.inputToken).safeTransfer(
                 myOrder.recipient,
                 yieldEarned
             );
@@ -604,7 +610,7 @@ contract Yolo is
                 "Yolo::rebalanceTokens: strategy doesn't exist"
             );
 
-            uint256 balanceInContract = IERC20(tokens[i]).balanceOf(
+            uint256 balanceInContract = IERC20Upgradeable(tokens[i]).balanceOf(
                 address(this)
             );
 
@@ -619,7 +625,10 @@ contract Yolo is
 
             if (balanceInContract > bufferBalanceNeeded) {
                 uint256 depositAmount = balanceInContract - bufferBalanceNeeded;
-                IERC20(tokens[i]).safeTransfer(tokenStrategy, depositAmount);
+                IERC20Upgradeable(tokens[i]).safeTransfer(
+                    tokenStrategy,
+                    depositAmount
+                );
                 IYieldAdapter(tokenStrategy).deposit(tokens[i], depositAmount);
             } else if (balanceInContract < bufferBalanceNeeded) {
                 IYieldAdapter(tokenStrategy).withdraw(
@@ -799,9 +808,12 @@ contract Yolo is
     /**
      * @notice Add an token into whitelist
      */
-    function addWhitelistToken(address _token) external onlyOwner {
-        whitelistedTokens[_token] = true;
-        emit AddedWhitelistToken(_token);
+    function addWhitelistTokens(address[] memory _tokens) external onlyOwner {
+        for (uint256 i = 0; i < _tokens.length; i++) {
+            address token = _tokens[i];
+            whitelistedTokens[token] = true;
+            emit AddedWhitelistToken(token);
+        }
     }
 
     /**
@@ -891,16 +903,22 @@ contract Yolo is
     /**
      * @notice Update token buffer percent
      */
-    function updateTokenBuffer(address _token, uint256 _bufferPercent)
-        external
-        onlyEmergencyAdminOrOwner
-    {
-        require(
-            _bufferPercent <= 10000,
-            "Yolo::updateTokenBuffer: buffer percent exceeds max threshold"
-        );
-        tokenBuffer[_token] = _bufferPercent;
-        emit TokenBufferUpdated(_token, _bufferPercent);
+    function updateTokensBuffer(
+        address[] memory _tokens,
+        uint256[] memory _bufferPercents
+    ) external onlyEmergencyAdminOrOwner {
+        for (uint256 i = 0; i < _tokens.length; i++) {
+            address token = _tokens[i];
+            uint256 bufferPercent = _bufferPercents[i];
+            require(
+                bufferPercent <= 10000,
+                "Yolo::updateTokensBuffer: buffer percent exceeds max threshold"
+            );
+            if (bufferPercent > 0) {
+                tokenBuffer[token] = bufferPercent;
+                emit TokenBufferUpdated(token, bufferPercent);
+            }
+        }
     }
 
     /**
@@ -950,10 +968,16 @@ contract Yolo is
     ) internal returns (uint256 protocolFee) {
         address treasuryAddress = treasury;
         if (_protocolFee > 0) {
-            IERC20(_token).safeTransfer(treasuryAddress, _protocolFee);
+            IERC20Upgradeable(_token).safeTransfer(
+                treasuryAddress,
+                _protocolFee
+            );
         }
         if (_executor != address(0) && _executionFee > 0) {
-            IERC20(_token).safeTransfer(_executor, _executionFee - protocolFee);
+            IERC20Upgradeable(_token).safeTransfer(
+                _executor,
+                _executionFee - protocolFee
+            );
         }
     }
 
@@ -964,7 +988,9 @@ contract Yolo is
     ) internal returns (uint256 depositPlusYield) {
         delete orderHash[_orderId];
         address tokenStrategy = strategy[_token];
-        uint256 contractBal = IERC20(_token).balanceOf(address(this));
+        uint256 contractBal = IERC20Upgradeable(_token).balanceOf(
+            address(this)
+        );
         uint256 totalTokens = getTotalTokens(
             _token,
             contractBal,

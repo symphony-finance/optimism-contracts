@@ -31,19 +31,11 @@ async function main() {
             console.log("\nSetting up strategy for", data.token);
             const strategyAddr = await deployAaveYield(data.address);
 
-            const tx1 = await yolo.setStrategy(
+            const tx = await yolo.setStrategy(
                 data.address,
                 strategyAddr,
             );
-            await tx1.wait();
-
-            if (data.buffer > 0) {
-                const tx2 = await yolo.updateTokenBuffer(
-                    data.address,
-                    data.buffer,
-                );
-                await tx2.wait();
-            }
+            await tx.wait();
 
             file[network.name][i].aaveStrategy = strategyAddr;
 

@@ -88,7 +88,7 @@ describe("Rebalance Asset Test", () => {
         await yolo.setStrategy(daiAddress, aaveYield.address);
         expect(await yolo.strategy(daiAddress)).to.eq(aaveYield.address);
 
-        await yolo.updateTokenBuffer(daiAddress, bufferPercent);
+        await yolo.updateTokensBuffer([daiAddress], [bufferPercent]);
         expect(await yolo.tokenBuffer(daiAddress)).to.eq(bufferPercent);
 
         // Create aDAI contract instance
@@ -137,7 +137,7 @@ describe("Rebalance Asset Test", () => {
 
         // Decrease buffer percent
         const newBufferPercent = 3000;
-        await yolo.updateTokenBuffer(daiAddress, newBufferPercent);
+        await yolo.updateTokensBuffer([daiAddress], [newBufferPercent]);
         expect(await yolo.tokenBuffer(daiAddress)).to.eq(newBufferPercent);
 
         await yolo.rebalanceTokens([daiAddress]);

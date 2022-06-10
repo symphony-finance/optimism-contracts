@@ -91,7 +91,7 @@ describe("Create Order Test", () => {
 
         expect(await yolo.totalTokenShares(usdcAddress)).to.eq(0);
 
-        await yolo.addWhitelistToken(usdcAddress);
+        await yolo.addWhitelistTokens([usdcAddress]);
 
         // Create 1st Order
         await yolo.createOrder(
@@ -166,7 +166,7 @@ describe("Create Order Test", () => {
         await treasury.deployed();
         await yolo.updateTreasury(treasury.address);
 
-        await yolo.addWhitelistToken(configParams.wethAddress);
+        await yolo.addWhitelistTokens([configParams.wethAddress]);
 
         const depositAmount = new BigNumber(0.01).times(
             new BigNumber(10).exponentiatedBy(new BigNumber(18))
@@ -298,7 +298,7 @@ describe("Create Order Test", () => {
 
         expect(await yolo.totalTokenShares(usdcAddress)).to.eq(0);
 
-        await yolo.addWhitelistToken(usdcAddress);
+        await yolo.addWhitelistTokens([usdcAddress]);
 
         // check the state changes
         let totalSharesBefore = await yolo.totalTokenShares(
@@ -428,12 +428,7 @@ describe("Create Order Test", () => {
             aaveYield.address,
         );
 
-        await yolo.updateTokenBuffer(
-            usdcAddress,
-            0, // 40%
-        );
-
-        await yolo.addWhitelistToken(usdcAddress);
+        await yolo.addWhitelistTokens([usdcAddress]);
 
         // Create Order
         const tx = await yolo.createOrder(
@@ -535,12 +530,12 @@ describe("Create Order Test", () => {
             aaveYield.address,
         );
 
-        await yolo.updateTokenBuffer(
-            usdcAddress,
-            10000, // 100%
+        await yolo.updateTokensBuffer(
+            [usdcAddress],
+            [10000], // 100%
         );
 
-        await yolo.addWhitelistToken(usdcAddress);
+        await yolo.addWhitelistTokens([usdcAddress]);
 
         // Create Order
         const tx = await yolo.createOrder(
@@ -637,12 +632,12 @@ describe("Create Order Test", () => {
 
         const bufferPercent = 40; // 40%
 
-        await yolo.updateTokenBuffer(
-            usdcAddress,
-            bufferPercent * 100, // 4000
+        await yolo.updateTokensBuffer(
+            [usdcAddress],
+            [bufferPercent * 100], // 4000
         );
 
-        await yolo.addWhitelistToken(usdcAddress);
+        await yolo.addWhitelistTokens([usdcAddress]);
 
         // Create Order
         const tx = await yolo.createOrder(
@@ -732,7 +727,7 @@ describe("Create Order Test", () => {
         await usdcContract.approve(yolo.address, approveAmount);
 
         await yolo.pause();
-        await yolo.addWhitelistToken(usdcAddress);
+        await yolo.addWhitelistTokens([usdcAddress]);
 
         await expect(
             yolo.createOrder(

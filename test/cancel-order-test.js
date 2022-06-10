@@ -84,7 +84,7 @@ describe("Cancel Order Test", () => {
 
         await usdcContract.approve(yolo.address, approveAmount);
 
-        await yolo.addWhitelistToken(usdcAddress);
+        await yolo.addWhitelistTokens([usdcAddress]);
 
         // Create Order
         const createTx = await yolo.createOrder(
@@ -192,7 +192,7 @@ describe("Cancel Order Test", () => {
         );
 
         await yolo.setStrategy(usdcAddress, aaveYield.address);
-        await yolo.addWhitelistToken(usdcAddress);
+        await yolo.addWhitelistTokens([usdcAddress]);
 
         // Create Order
         const tx1 = await yolo.createOrder(
@@ -316,7 +316,7 @@ describe("Cancel Order Test", () => {
         const bufferPercent = 0;
 
         await yolo.setStrategy(usdcAddress, aaveYield.address);
-        await yolo.addWhitelistToken(usdcAddress);
+        await yolo.addWhitelistTokens([usdcAddress]);
 
         await usdcContract.approve(yolo.address, approveAmount);
 
@@ -432,7 +432,7 @@ describe("Cancel Order Test", () => {
         const bufferPercent = 0;
 
         await yolo.setStrategy(usdcAddress, aaveYield.address);
-        await yolo.addWhitelistToken(usdcAddress);
+        await yolo.addWhitelistTokens([usdcAddress]);
 
         await usdcContract.approve(yolo.address, approveAmount);
 
@@ -573,7 +573,7 @@ describe("Cancel Order Test", () => {
         );
 
         await yolo.setStrategy(usdcAddress, aaveYield.address);
-        await yolo.addWhitelistToken(usdcAddress);
+        await yolo.addWhitelistTokens([usdcAddress]);
         await yolo.updateTreasury(treasury);
         await yolo.updateCancellationFee(1000); // 10%
 

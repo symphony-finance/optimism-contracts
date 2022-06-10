@@ -54,7 +54,7 @@ const approveAmount = new BigNumber(100)
     .toString();
 
 describe("Execute Order Test", () => {
-    it("Should execute order with Sushiswap Handler & Aave Yield", async () => {
+    it("Should execute order with Uniswap Handler & Aave Yield", async () => {
         await network.provider.request({
             method: "hardhat_impersonateAccount",
             params: ["0x6Da788AE09788a82DAAce1d642c5f26debf4A153"]
@@ -141,7 +141,7 @@ describe("Execute Order Test", () => {
         );
 
         await yolo.setStrategy(daiAddress, aaveYield.address);
-        await yolo.updateTokenBuffer(daiAddress, 4000);
+        await yolo.updateTokensBuffer([daiAddress], [4000]);
 
         // Deploy Uniswap Handler
         const UniswapHandler = await ethers.getContractFactory("UniswapHandler");
@@ -155,7 +155,7 @@ describe("Execute Order Test", () => {
         await uniswapHandler.deployed();
 
         await yolo.addHandler(uniswapHandler.address);
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         await daiContract.approve(yolo.address, approveAmount);
 
@@ -333,7 +333,7 @@ describe("Execute Order Test", () => {
 
         await daiContract.approve(yolo.address, approveAmount);
 
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         const inputAmount1 = new BigNumber(inputAmount)
             .plus(new BigNumber(executionFee)).toString();
@@ -488,7 +488,7 @@ describe("Execute Order Test", () => {
 
         await daiContract.approve(yolo.address, approveAmount);
 
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         // Create Order
         const tx = await yolo.createOrder(
@@ -622,7 +622,7 @@ describe("Execute Order Test", () => {
          await uniswapHandler.deployed();
 
         await yolo.addHandler(uniswapHandler.address);
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         await daiContract.approve(yolo.address, approveAmount);
 
@@ -762,7 +762,7 @@ describe("Execute Order Test", () => {
        await uniswapHandler.deployed();
 
         await yolo.addHandler(uniswapHandler.address);
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         await daiContract.approve(yolo.address, approveAmount);
 
@@ -870,7 +870,7 @@ describe("Execute Order Test", () => {
        await uniswapHandler.deployed();
 
         await yolo.addHandler(uniswapHandler.address);
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         await daiContract.approve(yolo.address, approveAmount);
 
@@ -979,7 +979,7 @@ describe("Execute Order Test", () => {
         await uniswapHandler.deployed();
 
         await yolo.addHandler(uniswapHandler.address);
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         await daiContract.approve(yolo.address, approveAmount);
 

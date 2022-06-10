@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: agpl-3.0
 pragma solidity 0.8.10;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/interfaces/IERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
 
 contract Treasury is Initializable, OwnableUpgradeable {
-    using SafeERC20 for IERC20;
+    using SafeERC20Upgradeable for IERC20Upgradeable;
 
     function initialize(address _admin) external initializer {
         __Ownable_init();
@@ -32,7 +32,7 @@ contract Treasury is Initializable, OwnableUpgradeable {
         @param receivers Address of each token receiver
      */
     function withdrawTokens(
-        IERC20[] memory tokens,
+        IERC20Upgradeable[] memory tokens,
         uint256[] memory amounts,
         address[] memory receivers
     ) external onlyOwner {

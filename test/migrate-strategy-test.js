@@ -105,7 +105,7 @@ describe("Migrate Strategy Test", () => {
         );
 
         await yolo.setStrategy(daiAddress, aaveYield.address);
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         const approveAmount = new BigNumber(100)
             .times(
@@ -238,7 +238,7 @@ describe("Migrate Strategy Test", () => {
         );
 
         await yolo.setStrategy(daiAddress, aaveYield.address);
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         await daiContract.approve(yolo.address, approveAmount);
 

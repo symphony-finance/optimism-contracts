@@ -5,49 +5,56 @@
       "address": "0x4200000000000000000000000000000000000006",
       "feed": "0x13e3Ee699D1909E989722E753853AE30b17e08c5",
       "aaveStrategy": "",
-      "buffer": 0
+      "buffer": 0,
+      "isWhitelistToken": true
     },
     {
       "token": "usdc",
       "address": "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
       "feed": "0x16a9FA2FDa030272Ce99B29CF780dFA30361E0f3",
       "aaveStrategy": "",
-      "buffer": 0
+      "buffer": 0,
+      "isWhitelistToken": true
     },
     {
       "token": "dai",
       "address": "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
       "feed": "0x8dBa75e83DA73cc766A7e5a0ee71F656BAb470d6",
       "aaveStrategy": "",
-      "buffer": 0
+      "buffer": 0,
+      "isWhitelistToken": true
     },
     {
       "token": "susd",
       "address": "0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9",
       "feed": "0x7f99817d87baD03ea21E05112Ca799d715730efe",
       "aaveStrategy": "",
-      "buffer": 0
+      "buffer": 0,
+      "isWhitelistToken": true
     },
     {
       "token": "usdt",
       "address": "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
       "feed": "0xECef79E109e997bCA29c1c0897ec9d7b03647F5E",
       "aaveStrategy": "",
-      "buffer": 0
+      "buffer": 0,
+      "isWhitelistToken": true
     },
     {
       "token": "wbtc",
       "address": "0x68f180fcCe6836688e9084f035309E29Bf0A2095",
       "feed": "0xD702DD976Fb76Fffc2D3963D037dfDae5b04E593",
       "aaveStrategy": "",
-      "buffer": 0
+      "buffer": 0,
+      "isWhitelistToken": true
     },
     {
       "token": "aave",
       "address": "0x76FB31fb4af56892A25e32cFC43De717950c9278",
       "feed": "0x338ed6787f463394D24813b297401B9F05a8C9d1",
       "aaveStrategy": "",
-      "buffer": 0
+      "buffer": 0,
+      "isWhitelistToken": true
     }
   ]
 }

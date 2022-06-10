@@ -12,7 +12,7 @@ const DEFAULT_BLOCK_GAS_LIMIT = 12450000;
 const INFURA_KEY = process.env.INFURA_KEY || '';
 const ALCHEMY_KEY = process.env.ALCHEMY_KEY || '';
 const MAINNET_FORK = process.env.MAINNET_FORK === 'true';
-const BUIDLEREVM_CHAINID = 31337;
+const BUIDLEREVM_CHAINID = 10;
 const ARBISCAN_KEY = process.env.ARBISCAN_KEY || '';
 const mainnetFork = MAINNET_FORK
     ? {
@@ -51,7 +51,7 @@ module.exports = {
             accounts: [`0x${process.env.MAINNET_PRIVATE_KEY}`],
             chainId: 10,
             blockGasLimit: DEFAULT_BLOCK_GAS_LIMIT,
-            gasPrice: 25 * GWEI
+            gasPrice: 0.001 * GWEI
         },
         rinkeby: {
             url: `https://eth-rinkeby.alchemyapi.io/v2/${ALCHEMY_KEY}`,

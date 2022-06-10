@@ -99,7 +99,7 @@ describe("Aave v3 Yield Test", () => {
         );
 
         await yolo.setStrategy(daiAddress, aaveV3Yield.address);
-        await yolo.addWhitelistToken(daiAddress);
+        await yolo.addWhitelistTokens([daiAddress]);
 
         await daiContract.approve(yolo.address, approveAmount);
 

@@ -36,10 +36,10 @@ library UniswapLibrary {
 
     /**
      * @notice Calculates the CREATE2 address for a pair without making any external calls
-     * @param _factory - Address of the sushiswapV2 factory contract
+     * @param _factory - Address of the uniswapV2 factory contract
      * @param _tokenA - Address of the token A
      * @param _tokenB - Address of the token B
-     * @param _initCodeHash - Bytes32 of the sushiswap v2 pair contract unit code hash
+     * @param _initCodeHash - Bytes32 of the uniswap v2 pair contract unit code hash
      * @return pair - Address of the pair
      */
     function pairFor(
@@ -68,10 +68,10 @@ library UniswapLibrary {
     /**
      * @notice Calculates the CREATE2 address for a pair without making any external calls
      * @dev Tokens should be in order
-     * @param _factory - Address of the sushiswapV2 factory contract
+     * @param _factory - Address of the uniswapV2 factory contract
      * @param _token0 - Address of the token 0
      * @param _token1 - Address of the token 1
-     * @param _initCodeHash - Bytes32 of the sushiswap v2 pair contract unit code hash
+     * @param _initCodeHash - Bytes32 of the uniswap v2 pair contract unit code hash
      * @return pair - Address of the pair
      */
     function pairForSorted(
