@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 import "../interfaces/IHandler.sol";
+import {IWETH} from "../interfaces/IWETH.sol";
 import {IUniswapV3Router as IUniswapRouter} from "../interfaces/uniswap/IUniswapV3Router.sol";
 
 /// @notice Uniswap V3 Handler used to execute an order
@@ -58,6 +59,8 @@ contract UniswapHandler is IHandler {
         uint256 amountOutMin,
         bytes calldata extraData
     ) internal returns (uint256 returnAmount) {
+        address weth = WETH;
+
         IERC20(order.inputToken).safeIncreaseAllowance(
             address(uniswapRouter),
             order.inputAmount
@@ -73,7 +76,7 @@ contract UniswapHandler is IHandler {
                 order.inputToken,
                 order.outputToken,
                 poo1Fee,
-                order.recipient,
+                order.outputToken != weth ? order.recipient : address(this),
                 block.timestamp, // deadline
                 order.inputAmount,
                 amountOutMin,
@@ -94,7 +97,9 @@ contract UniswapHandler is IHandler {
                         poo2Fee,
                         order.outputToken
                     ),
-                    recipient: order.recipient,
+                    recipient: order.outputToken != weth
+                        ? order.recipient
+                        : address(this),
                     deadline: block.timestamp,
                     amountIn: order.inputAmount,
                     amountOutMinimum: amountOutMin
@@ -102,5 +107,18 @@ contract UniswapHandler is IHandler {
 
             returnAmount = uniswapRouter.exactInput(multiPoolParams);
         }
+
+        if (order.outputToken == weth) {
+            IWETH(weth).withdraw(returnAmount);
+            _safeTransferETH(order.recipient, returnAmount);
+        }
     }
+
+    function _safeTransferETH(address to, uint256 value) internal {
+        (bool success, ) = to.call{value: value}(new bytes(0));
+        require(success, "ETH_TRANSFER_FAILED");
+    }
+
+    /// @notice receive ETH
+    receive() external payable {}
 }
