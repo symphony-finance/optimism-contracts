@@ -1,5 +1,6 @@
 const hre = require("hardhat");
 const config = require("../../config/index.json");
+const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 const main = (tokenAddress) => {
     return new Promise(async (resolve) => {
@@ -16,7 +17,8 @@ const main = (tokenAddress) => {
             configParams.emergencyAdmin,
             tokenAddress,
             configParams.aaveLendingPool,
-            configParams.aaveIncentivesController
+            configParams.aaveIncentivesController,
+            ZERO_ADDRESS,
         ).then(async (aaveYield) => {
             await aaveYield.deployed();
 

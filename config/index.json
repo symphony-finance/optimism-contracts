@@ -4,7 +4,7 @@
     "chainlinkOracle": "0x4f8aB66F046Bd34C75840A71389e8E73CB4827B7",
     "aaveLendingPool": "0x794a61358D6845594F94dc1DB02A252b5b4814aD",
     "aaveIncentivesController": "0x929EC64c34a17401F460460D4B9390518E5B473e",
-    "uniswapHandlerAddress": "0x06Ed62fce5D0B087C92DA7F9965F43042792D0F4",
+    "uniswapHandlerAddress": "0x8377AA8Aebc32D21cBcdE7267d62Cfcf305A4c5A",
     "uniswapRouter": "0xE592427A0AEce92De3Edee1F18E0157C05861564",
     "balancerHandlerAddress": "",
     "balancerVault": "0xBA12222222228d8Ba445958a75a0704d566BF2C8",
