@@ -13,7 +13,7 @@ const INFURA_KEY = process.env.INFURA_KEY || '';
 const ALCHEMY_KEY = process.env.ALCHEMY_KEY || '';
 const MAINNET_FORK = process.env.MAINNET_FORK === 'true';
 const BUIDLEREVM_CHAINID = 10;
-const ARBISCAN_KEY = process.env.ARBISCAN_KEY || '';
+const OPTIMISM_ETHERSCAN_KEY = process.env.OPTIMISM_ETHERSCAN_KEY || '';
 const mainnetFork = MAINNET_FORK
     ? {
         blockNumber: 9091364,
@@ -61,7 +61,7 @@ module.exports = {
         }
     },
     etherscan: {
-        apiKey: ARBISCAN_KEY
+        apiKey: OPTIMISM_ETHERSCAN_KEY
     },
     solidity: {
         version: "0.8.10",

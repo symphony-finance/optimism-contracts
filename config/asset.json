@@ -5,7 +5,7 @@
       "address": "0x4200000000000000000000000000000000000006",
       "feed": "0x13e3Ee699D1909E989722E753853AE30b17e08c5",
       "aaveStrategy": "0x7ffcEe844cf87c65AF845f62987952aAA4653cd1",
-      "buffer": 0,
+      "buffer": 2000,
       "isWhitelistToken": true
     },
     {
@@ -13,7 +13,7 @@
       "address": "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
       "feed": "0x16a9FA2FDa030272Ce99B29CF780dFA30361E0f3",
       "aaveStrategy": "0xcF942Fe237016eA778d1F9A4b185b98913b35888",
-      "buffer": 0,
+      "buffer": 2000,
       "isWhitelistToken": true
     },
     {
@@ -21,7 +21,7 @@
       "address": "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
       "feed": "0x8dBa75e83DA73cc766A7e5a0ee71F656BAb470d6",
       "aaveStrategy": "0x3e349EcB2c6bB2EaBcD47AD0c6AfCb30Aeec7474",
-      "buffer": 0,
+      "buffer": 2000,
       "isWhitelistToken": true
     },
     {
@@ -29,7 +29,7 @@
       "address": "0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9",
       "feed": "0x7f99817d87baD03ea21E05112Ca799d715730efe",
       "aaveStrategy": "0x7E756dE98019F69b64560dFd5C95578f93dAb33f",
-      "buffer": 0,
+      "buffer": 2000,
       "isWhitelistToken": true
     },
     {
@@ -37,7 +37,7 @@
       "address": "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
       "feed": "0xECef79E109e997bCA29c1c0897ec9d7b03647F5E",
       "aaveStrategy": "0x809F1AA348e2E35d8F69dd96E219F62B2f70901D",
-      "buffer": 0,
+      "buffer": 2000,
       "isWhitelistToken": true
     },
     {
@@ -45,7 +45,7 @@
       "address": "0x68f180fcCe6836688e9084f035309E29Bf0A2095",
       "feed": "0xD702DD976Fb76Fffc2D3963D037dfDae5b04E593",
       "aaveStrategy": "0x7D484F1047fa4343047cf95502409A267B7019e2",
-      "buffer": 0,
+      "buffer": 2000,
       "isWhitelistToken": true
     },
     {
@@ -53,7 +53,7 @@
       "address": "0x76FB31fb4af56892A25e32cFC43De717950c9278",
       "feed": "0x338ed6787f463394D24813b297401B9F05a8C9d1",
       "aaveStrategy": "0x81CAae842b3dFF6b325b54E2BD67ac9d50B87031",
-      "buffer": 0,
+      "buffer": 2000,
       "isWhitelistToken": true
     }
   ]
